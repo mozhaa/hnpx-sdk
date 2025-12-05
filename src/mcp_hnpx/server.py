@@ -114,14 +114,12 @@ def set_node_children(file_path: str, node_id: str, children_xml: str) -> str:
         children_fragment = etree.fromstring(f"<root>{children_xml}</root>", parser)
         new_children = list(children_fragment)
         
-        # Ensure all new elements have IDs
+        # Always generate random IDs for all new elements, overriding any existing IDs
         for child in new_children:
-            if child.get("id") is None:
-                child.set("id", generate_id())
-            # Recursively check nested elements
+            child.set("id", generate_id())
+            # Recursively assign random IDs to all nested elements
             for descendant in child.xpath(".//*[@id]"):
-                if descendant.get("id") is None:
-                    descendant.set("id", generate_id())
+                descendant.set("id", generate_id())
 
         success = doc.set_node_children(node_id, new_children)
 
@@ -144,14 +142,12 @@ def append_node_children(file_path: str, node_id: str, children_xml: str) -> str
         children_fragment = etree.fromstring(f"<root>{children_xml}</root>", parser)
         new_children = list(children_fragment)
         
-        # Ensure all new elements have IDs
+        # Always generate random IDs for all new elements, overriding any existing IDs
         for child in new_children:
-            if child.get("id") is None:
-                child.set("id", generate_id())
-            # Recursively check nested elements
+            child.set("id", generate_id())
+            # Recursively assign random IDs to all nested elements
             for descendant in child.xpath(".//*[@id]"):
-                if descendant.get("id") is None:
-                    descendant.set("id", generate_id())
+                descendant.set("id", generate_id())
 
         success = doc.append_children(node_id, new_children)
 
