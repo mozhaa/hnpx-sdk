@@ -4,11 +4,10 @@ MCP Server for HNPX document manipulation.
 
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Dict
 
 from lxml import etree
 from fastmcp import FastMCP
-from mcp.types import TextContent
 
 from .hnpx import HNPXDocument
 
@@ -26,6 +25,7 @@ def get_document(file_path: str) -> HNPXDocument:
         documents[abs_path] = HNPXDocument(abs_path)
     return documents[abs_path]
 
+
 @mcp.tool()
 def get_node(file_path: str, node_id: str) -> str:
     """Get a node by ID and read its attributes and summary."""
@@ -40,9 +40,7 @@ def get_node(file_path: str, node_id: str) -> str:
         "tag": element.tag,
         "attributes": doc.get_element_attributes(element),
         "summary": doc.get_element_summary(element),
-        "text": doc.get_element_text(element)
-        if element.tag == "paragraph"
-        else None,
+        "text": doc.get_element_text(element) if element.tag == "paragraph" else None,
     }
 
     return json.dumps(result, indent=2)
@@ -160,7 +158,9 @@ def remove_node(file_path: str, node_id: str) -> str:
 
 
 @mcp.tool()
-def edit_node_attributes(file_path: str, node_id: str, attributes: Dict[str, str]) -> str:
+def edit_node_attributes(
+    file_path: str, node_id: str, attributes: Dict[str, str]
+) -> str:
     """Edit node attributes."""
     doc = get_document(file_path)
     success = doc.edit_element_attributes(node_id, attributes)
@@ -196,7 +196,7 @@ def search_nodes(
     tag: str = None,
     attributes: Dict[str, str] = None,
     text_contains: str = None,
-    summary_contains: str = None
+    summary_contains: str = None,
 ) -> str:
     """Search for nodes matching criteria."""
     doc = get_document(file_path)

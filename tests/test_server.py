@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import pytest
 
 from mcp_hnpx.hnpx import HNPXDocument, create_element, generate_id
 
@@ -137,6 +136,7 @@ def test_mcp_server_get_node():
     assert isinstance(result, str)
     # Should be valid JSON
     import json
+
     parsed_result = json.loads(result)
     assert "id" in parsed_result
     assert "tag" in parsed_result
@@ -154,6 +154,7 @@ def test_mcp_server_get_empty_containers():
     assert isinstance(result, str)
     # Should be valid JSON
     import json
+
     parsed_result = json.loads(result)
     assert isinstance(parsed_result, list)
     assert len(parsed_result) <= 3
@@ -173,6 +174,7 @@ def test_mcp_server_search_nodes():
     assert isinstance(result, str)
     # Should be valid JSON
     import json
+
     parsed_result = json.loads(result)
     assert isinstance(parsed_result, list)
     for node in parsed_result:
