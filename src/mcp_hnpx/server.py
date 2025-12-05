@@ -106,6 +106,10 @@ def find_first_empty_container(tree: etree.ElementTree) -> Optional[etree.Elemen
             # Check if it has required children (excluding summary)
             if get_child_count(node) == 0:
                 return node
+        elif node.tag == "paragraph":
+            # Check if paragraph has no text content
+            if len(node.text.strip()) == 0:
+                return node
         
         # Add children to queue (BFS)
         queue.extend([child for child in node if child.tag != "summary"])
