@@ -120,8 +120,11 @@ def test_element_creation():
     beat.append(para)
     assert beat.tag == "beat"
     assert beat.get("id") == "a1b2c3"
-    # Beat should have 2 children: summary and paragraph
+    # Beat should have 2 children total: summary and paragraph
     assert len(list(beat)) == 2
+    # But get_children should exclude summary, so only 1 child (paragraph)
+    doc = HNPXDocument("example.xml")
+    assert len(doc.get_children(beat)) == 1
 
 
 @pytest.mark.asyncio

@@ -81,8 +81,8 @@ class HNPXDocument:
         return element.getparent()
     
     def get_children(self, element: etree._Element) -> List[etree._Element]:
-        """Get all child elements of an element."""
-        return list(element)
+        """Get all child elements of an element, excluding summary tags."""
+        return [child for child in element if child.tag != "summary"]
     
     def get_siblings(self, element: etree._Element) -> List[etree._Element]:
         """Get all siblings of an element (excluding the element itself)."""
@@ -126,8 +126,11 @@ class HNPXDocument:
             return False
         
         # Check if it has only a summary and no other children
-        children = self.get_children(element)
-        if len(children) == 1 and children[0].tag == "summary":
+        all_children = list(element)  # Get all children including summary
+        non_summary_children = self.get_children(element)  # Get children excluding summary
+        
+        # If it has only a summary and no other children
+        if len(all_children) == 1 and all_children[0].tag == "summary":
             return True
         
         # Check if it has the minimum required children
@@ -138,7 +141,7 @@ class HNPXDocument:
             "beat": 2,  # summary + at least 1 paragraph
         }
         
-        return len(children) < required_counts.get(element.tag, 2)
+        return len(non_summary_children) < required_counts.get(element.tag, 1)
     
     def find_empty_containers(self, limit: int = 10) -> List[etree._Element]:
         """Find container elements that need children populated."""
@@ -205,7 +208,7 @@ class HNPXDocument:
         return True
     
     def set_element_children(self, element_id: str, new_children: List[etree._Element]) -> bool:
-        """Replace all children of an element with new children."""
+        """Replace all children of an element with new children (excluding summary)."""
         element = self.get_element_by_id(element_id)
         if element is None:
             return False
@@ -220,21 +223,23 @@ class HNPXDocument:
         if summary is not None:
             element.append(summary)
         
-        # Add new children
+        # Add new children (excluding any summary elements in the new children)
         for child in new_children:
-            element.append(child)
+            if child.tag != "summary":
+                element.append(child)
         
         self._build_id_cache()  # Rebuild cache after modification
         return True
     
     def append_children(self, element_id: str, new_children: List[etree._Element]) -> bool:
-        """Append new children to an element."""
+        """Append new children to an element (excluding summary)."""
         element = self.get_element_by_id(element_id)
         if element is None:
             return False
         
         for child in new_children:
-            element.append(child)
+            if child.tag != "summary":
+                element.append(child)
         
         self._build_id_cache()  # Rebuild cache after modification
         return True
