@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 MCP Server for HNPX document manipulation.
 """
@@ -19,7 +18,7 @@ from mcp.types import (
     Tool,
 )
 
-from .hnpx_utils import HNPXDocument
+from .hnpx import HNPXDocument
 
 
 class HNPXMCPServer:

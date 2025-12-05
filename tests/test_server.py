@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from mcp_hnpx.hnpx_utils import HNPXDocument, create_element, generate_id
+from mcp_hnpx.hnpx import HNPXDocument, create_element, generate_id
 
 
 def test_hnpx_document_loading():
