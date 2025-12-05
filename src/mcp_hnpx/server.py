@@ -109,7 +109,7 @@ def find_first_empty_container(tree: etree.ElementTree) -> Optional[etree.Elemen
                 return node
         elif node.tag == "paragraph":
             # Check if paragraph has no text content
-            if len(node.text.strip()) == 0:
+            if not (node.text or "").strip():
                 return node
         
         # Add children to queue (BFS)
@@ -119,9 +119,13 @@ def find_first_empty_container(tree: etree.ElementTree) -> Optional[etree.Elemen
 
 def render_paragraph(paragraph: etree.Element) -> str:
     """Render a single paragraph based on its mode"""
-    text = paragraph.text.strip() if paragraph.text else ""
+    text = (paragraph.text or "").strip()
     mode = paragraph.get("mode", "narration")
     char = paragraph.get("char", "")
+    
+    # Only render if there's actual text content
+    if not text:
+        return ""
     
     if mode == "dialogue" and char:
         return f'{char}: "{text}"'
