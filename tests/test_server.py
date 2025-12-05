@@ -6,14 +6,14 @@ from mcp_hnpx.hnpx import HNPXDocument, create_element, generate_id
 
 def test_hnpx_document_loading():
     """Test loading the example document."""
-    doc = HNPXDocument("example.xml")
-    assert doc.file_path == Path("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
+    assert doc.file_path == Path("tests/resources/example.xml")
     assert doc.root.tag is not None
 
 
 def test_hnpx_element_by_id():
     """Test getting a node by ID."""
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     # Get the first element with an ID from the document
     elements_with_ids = doc.root.xpath("//*[@id]")
     assert len(elements_with_ids) > 0, "No elements with IDs found in example.xml"
@@ -30,7 +30,7 @@ def test_hnpx_element_by_id():
 
 def test_hnpx_element_context():
     """Test getting element context (parent and siblings)."""
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     # Find a paragraph element to test context
     paragraphs = doc.root.xpath("//paragraph[@id]")
     if len(paragraphs) > 0:
@@ -55,7 +55,7 @@ def test_hnpx_element_context():
 
 def test_hnpx_empty_containers():
     """Test finding empty containers."""
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     empty_containers = doc.find_empty_containers(5)
     assert isinstance(empty_containers, list)
     for container in empty_containers:
@@ -66,7 +66,7 @@ def test_hnpx_empty_containers():
 
 def test_hnpx_search():
     """Test search functionality."""
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     results = doc.search_elements(text_contains="Boogiepop")
     assert isinstance(results, list)
     for result in results[:3]:
@@ -81,7 +81,7 @@ def test_hnpx_search():
 
 def test_hnpx_validation():
     """Test document validation."""
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     is_valid, errors = doc.validate()
     assert isinstance(is_valid, bool)
     assert isinstance(errors, list)
@@ -92,7 +92,7 @@ def test_hnpx_validation():
 
 def test_hnpx_statistics():
     """Test document statistics."""
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     stats = doc.get_document_stats()
     assert isinstance(stats, dict)
     assert "total_elements" in stats
@@ -133,7 +133,7 @@ def test_element_creation():
     # Beat should have 2 children total: summary and paragraph
     assert len(list(beat)) == 2
     # But get_children should exclude summary, so only 1 child (paragraph)
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     assert len(doc.get_children(beat)) == 1
     
     # Test creating elements with auto-generated IDs
@@ -155,14 +155,14 @@ def test_mcp_server_get_node():
     from mcp_hnpx.server import get_node
 
     # Get the first element with an ID from the document
-    doc = HNPXDocument("example.xml")
+    doc = HNPXDocument("tests/resources/example.xml")
     elements_with_ids = doc.root.xpath("//*[@id]")
     assert len(elements_with_ids) > 0, "No elements with IDs found in example.xml"
     
     first_element_id = elements_with_ids[0].get("id")
     
     # Access the underlying function from the FastMCP tool
-    result = get_node.fn("example.xml", first_element_id)
+    result = get_node.fn("tests/resources/example.xml", first_element_id)
     assert result is not None
     assert isinstance(result, str)
     # Should be valid JSON
@@ -180,7 +180,7 @@ def test_mcp_server_get_empty_containers():
     from mcp_hnpx.server import get_empty_containers
 
     # Access the underlying function from the FastMCP tool
-    result = get_empty_containers.fn("example.xml", 3)
+    result = get_empty_containers.fn("tests/resources/example.xml", 3)
     assert result is not None
     assert isinstance(result, str)
     # Should be valid JSON
@@ -200,7 +200,7 @@ def test_mcp_server_search_nodes():
     from mcp_hnpx.server import search_nodes
 
     # Access the underlying function from the FastMCP tool
-    result = search_nodes.fn("example.xml", text_contains="Boogiepop")
+    result = search_nodes.fn("tests/resources/example.xml", text_contains="Boogiepop")
     assert result is not None
     assert isinstance(result, str)
     # Should be valid JSON
