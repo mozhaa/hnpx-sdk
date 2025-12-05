@@ -5,12 +5,12 @@ Tests for rendering and export tools.
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.tools.rendering import (
+from mcp_hnpx.tools.rendering import (
     render_node,
     render_document,
     render_to_markdown,
 )
-from src.mcp_hnpx.errors import (
+from mcp_hnpx.errors import (
     FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,

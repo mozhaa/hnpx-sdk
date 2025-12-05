@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.hnpx_utils import create_minimal_hnpx_document
+from mcp_hnpx.hnpx_utils import create_minimal_hnpx_document
 
 
 @pytest.fixture

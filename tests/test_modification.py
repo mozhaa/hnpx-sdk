@@ -5,12 +5,12 @@ Tests for node modification tools.
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.tools.modification import (
+from mcp_hnpx.tools.modification import (
     edit_node_attributes,
     remove_node,
     reorder_children,
 )
-from src.mcp_hnpx.errors import (
+from mcp_hnpx.errors import (
     FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,
@@ -327,7 +327,7 @@ class TestReorderChildren:
     def test_reorder_sequences(self, sample_hnpx_file):
         """Test reordering sequences within a chapter."""
         # First, add another sequence to the sample document
-        from src.mcp_hnpx.tools.creation import create_sequence
+        from mcp_hnpx.tools.creation import create_sequence
 
         create_sequence(
             str(sample_hnpx_file),
@@ -338,7 +338,7 @@ class TestReorderChildren:
         )
 
         # Get the new sequence ID
-        from src.mcp_hnpx.tools.navigation import get_direct_children
+        from mcp_hnpx.tools.navigation import get_direct_children
 
         children_xml = get_direct_children(str(sample_hnpx_file), "c8p2q5")
         import re

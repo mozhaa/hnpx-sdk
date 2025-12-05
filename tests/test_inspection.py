@@ -5,13 +5,13 @@ Tests for node inspection tools.
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.tools.inspection import (
+from mcp_hnpx.tools.inspection import (
     get_subtree,
     get_direct_children,
     get_node_path,
     get_node_context,
 )
-from src.mcp_hnpx.errors import (
+from mcp_hnpx.errors import (
     FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,

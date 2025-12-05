@@ -7,7 +7,7 @@ from unittest.mock import patch, mock_open
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.hnpx_utils import (
+from mcp_hnpx.hnpx_utils import (
     generate_random_id,
     validate_id_format,
     parse_xml_file,
@@ -22,7 +22,7 @@ from src.mcp_hnpx.hnpx_utils import (
     get_parent_node,
     get_required_children,
 )
-from src.mcp_hnpx.errors import (
+from mcp_hnpx.errors import (
     FileNotFoundError,
     InvalidXMLError,
     InvalidAttributeError,

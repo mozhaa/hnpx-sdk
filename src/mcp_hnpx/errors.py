@@ -3,7 +3,7 @@ Error definitions following mcp-tools.md specification.
 All exceptions inherit from fastmcp.ToolError for proper MCP integration.
 """
 
-from fastmcp import ToolError
+from fastmcp.exceptions import ToolError
 
 
 class HNPXError(ToolError):

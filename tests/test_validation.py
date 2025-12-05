@@ -6,8 +6,8 @@ from unittest.mock import patch
 
 import pytest
 
-from src.mcp_hnpx.validation import validate_hnpx_with_schema, validate_hnpx_basic
-from src.mcp_hnpx.errors import FileNotFoundError
+from mcp_hnpx.validation import validate_hnpx_with_schema, validate_hnpx_basic
+from mcp_hnpx.errors import FileNotFoundError
 
 
 class TestValidateHNPXWithSchema:
@@ -32,8 +32,8 @@ class TestValidateHNPXWithSchema:
         assert isinstance(errors, list)
         assert len(errors) > 0
 
-    @patch("src.mcp_hnpx.validation.etree.parse")
-    @patch("src.mcp_hnpx.validation.os.path.exists")
+    @patch("mcp_hnpx.validation.etree.parse")
+    @patch("mcp_hnpx.validation.os.path.exists")
     def test_validate_with_mock_schema(self, mock_exists, mock_parse, sample_hnpx_file):
         """Test validation with mocked schema."""
         # Mock schema file exists
@@ -47,8 +47,8 @@ class TestValidateHNPXWithSchema:
         errors = validate_hnpx_with_schema(str(sample_hnpx_file))
         assert errors == []
 
-    @patch("src.mcp_hnpx.validation.etree.parse")
-    @patch("src.mcp_hnpx.validation.os.path.exists")
+    @patch("mcp_hnpx.validation.etree.parse")
+    @patch("mcp_hnpx.validation.os.path.exists")
     def test_validate_with_schema_errors(
         self, mock_exists, mock_parse, sample_hnpx_file
     ):

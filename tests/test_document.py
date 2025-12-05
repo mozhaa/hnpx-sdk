@@ -8,8 +8,8 @@ from unittest.mock import patch
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.tools.document import create_document
-from src.mcp_hnpx.errors import FileExistsError
+from mcp_hnpx.tools.document import create_document
+from mcp_hnpx.errors import FileExistsError
 
 
 class TestCreateDocument:
@@ -84,7 +84,7 @@ class TestCreateDocument:
 
         assert "Cannot create file" in str(exc_info.value)
 
-    @patch("src.mcp_hnpx.tools.document.create_minimal_hnpx_document")
+    @patch("mcp_hnpx.tools.document.create_minimal_hnpx_document")
     def test_create_document_with_mock(self, mock_create, temp_file):
         """Test creating document with mocked minimal document."""
         # Mock the minimal document creation
@@ -193,7 +193,7 @@ class TestCreateDocument:
         finally:
             os.chdir(original_cwd)
 
-    @patch("src.mcp_hnpx.tools.document.format_xml_for_output")
+    @patch("mcp_hnpx.tools.document.format_xml_for_output")
     def test_create_document_format_error(self, mock_format, temp_file):
         """Test handling of XML formatting errors."""
         mock_format.side_effect = Exception("Formatting error")
@@ -213,6 +213,6 @@ class TestCreateDocument:
         assert all(c.islower() or c.isdigit() for c in book_id)
 
         # Test that ID would pass validation
-        from src.mcp_hnpx.hnpx_utils import validate_id_format
+        from mcp_hnpx.hnpx_utils import validate_id_format
 
         assert validate_id_format(book_id) is True

@@ -2,7 +2,7 @@
 Tests for HNPX error handling.
 """
 
-from src.mcp_hnpx.errors import (
+from mcp_hnpx.errors import (
     HNPXError,
     FileNotFoundError,
     InvalidXMLError,

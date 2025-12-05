@@ -5,7 +5,7 @@ Tests for MCP server integration.
 import pytest
 from unittest.mock import Mock, patch
 
-from src.mcp_hnpx.server import HNPXMCP, run_server
+from mcp_hnpx.server import HNPXMCP, run_server
 
 
 class TestHNPXMCP:
@@ -122,7 +122,7 @@ class TestHNPXMCP:
         for param in expected_params:
             assert param in param_names
 
-    @patch("src.mcp_hnpx.server.FastMCP")
+    @patch("mcp_hnpx.server.FastMCP")
     def test_server_run_method(self, mock_fastmcp):
         """Test server run method."""
         mock_mcp_instance = Mock()
@@ -172,7 +172,7 @@ class TestHNPXMCP:
 
 
 class TestRunServer:
-    @patch("src.mcp_hnpx.server.HNPXMCP")
+    @patch("mcp_hnpx.server.HNPXMCP")
     def test_run_server_function(self, mock_hnpx_class):
         """Test the run_server convenience function."""
         mock_server_instance = Mock()
@@ -186,7 +186,7 @@ class TestRunServer:
         mock_hnpx_class.assert_called_once()
         mock_server_instance.run.assert_called_once()
 
-    @patch("src.mcp_hnpx.server.HNPXMCP")
+    @patch("mcp_hnpx.server.HNPXMCP")
     @patch("__main__.__name__", "__main__")
     def test_main_execution(self, mock_hnpx_class):
         """Test that server runs when executed as main."""
@@ -194,10 +194,10 @@ class TestRunServer:
         mock_hnpx_class.return_value = mock_server_instance
 
         # Simulate main execution
-        import src.mcp_hnpx.server
+        import mcp_hnpx.server
 
-        with patch.object(src.mcp_hnpx.server, "run_server") as mock_run:
-            src.mcp_hnpx.server.run_server()
+        with patch.object(mcp_hnpx.server, "run_server") as mock_run:
+            mcp_hnpx.server.run_server()
             mock_run.assert_called_once()
 
 
@@ -299,7 +299,7 @@ class TestServerIntegration:
         tool_dict = {tool.name: tool for tool in tools}
 
         # Create a test document
-        from src.mcp_hnpx.tools.document import create_document
+        from mcp_hnpx.tools.document import create_document
 
         file_path = temp_dir / "consistency_test.hnpx"
 

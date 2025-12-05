@@ -5,13 +5,13 @@ Tests for node creation tools.
 import pytest
 from lxml import etree
 
-from src.mcp_hnpx.tools.creation import (
+from mcp_hnpx.tools.creation import (
     create_chapter,
     create_sequence,
     create_beat,
     create_paragraph,
 )
-from src.mcp_hnpx.errors import (
+from mcp_hnpx.errors import (
     FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,
