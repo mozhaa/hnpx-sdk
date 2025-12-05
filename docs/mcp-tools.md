@@ -2,6 +2,9 @@
 
 ## Available Tools
 
+### Document Creation
+- `create_document(file_path, title="Untitled Book")` - Create a new empty HNPX document
+
 ### Core Node Operations
 - `get_node(file_path, node_id)` - Get node details by ID
 - `get_node_context(file_path, node_id, include_text=false)` - Get node context (parent, siblings)
@@ -25,6 +28,9 @@
 ## Quick Examples
 
 ```json
+// Create new document
+create_document({"file_path": "new_story.xml", "title": "My Novel"})
+
 // Get node
 get_node({"file_path": "example.xml", "node_id": "b3k9m7"})
 
@@ -58,6 +64,7 @@ export_document({
 
 ## Key Parameters
 - `file_path` (required): Path to HNPX XML file
+- `title` (optional for create_document): Document title (default: "Untitled Book")
 - `node_id` (required for node ops): Unique node identifier
 - `children_xml`: XML string for child elements
 - `format`: "plain" or "markdown"
