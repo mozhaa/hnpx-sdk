@@ -7,7 +7,6 @@ from lxml import etree
 
 from mcp_hnpx.tools.navigation import get_next_empty_container, get_node
 from mcp_hnpx.errors import (
-    FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,
 )

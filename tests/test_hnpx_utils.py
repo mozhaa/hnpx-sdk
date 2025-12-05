@@ -23,7 +23,6 @@ from mcp_hnpx.hnpx_utils import (
     get_required_children,
 )
 from mcp_hnpx.errors import (
-    FileNotFoundError,
     InvalidXMLError,
     InvalidAttributeError,
     MissingCharError,

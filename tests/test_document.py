@@ -9,7 +9,6 @@ import pytest
 from lxml import etree
 
 from mcp_hnpx.tools.document import create_document
-from mcp_hnpx.errors import FileExistsError
 
 
 class TestCreateDocument:

@@ -5,7 +5,6 @@ Document management tools for HNPX MCP server.
 import logging
 import os
 from ..hnpx_utils import create_minimal_hnpx_document, format_xml_for_output
-from ..errors import FileExistsError
 
 logger = logging.getLogger(__name__)
 

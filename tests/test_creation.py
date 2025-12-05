@@ -12,7 +12,6 @@ from mcp_hnpx.tools.creation import (
     create_paragraph,
 )
 from mcp_hnpx.errors import (
-    FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,
     InvalidParentError,

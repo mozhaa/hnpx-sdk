@@ -11,7 +11,6 @@ from mcp_hnpx.tools.modification import (
     reorder_children,
 )
 from mcp_hnpx.errors import (
-    FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,
     ReadOnlyError,

@@ -12,7 +12,6 @@ from mcp_hnpx.tools.inspection import (
     get_node_context,
 )
 from mcp_hnpx.errors import (
-    FileNotFoundError,
     NotHNPXError,
     NodeNotFoundError,
 )

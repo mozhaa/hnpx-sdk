@@ -7,7 +7,6 @@ from unittest.mock import patch
 import pytest
 
 from mcp_hnpx.validation import validate_hnpx_with_schema, validate_hnpx_basic
-from mcp_hnpx.errors import FileNotFoundError
 
 
 class TestValidateHNPXWithSchema:

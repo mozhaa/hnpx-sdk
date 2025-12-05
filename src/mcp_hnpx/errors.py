@@ -13,11 +13,6 @@ class HNPXError(ToolError):
         super().__init__(message)
 
 
-class FileNotFoundError(HNPXError):
-    def __init__(self, file_path: str):
-        super().__init__(f"File not found at '{file_path}'")
-
-
 class InvalidXMLError(HNPXError):
     def __init__(self, reason: str):
         super().__init__(f"The file contains malformed XML\nReason: {reason}")
@@ -29,11 +24,6 @@ class NotHNPXError(HNPXError):
             "The file is not a valid HNPX document\n"
             "Reason: HNPX documents must have a root <book> element with proper structure"
         )
-
-
-class FileExistsError(HNPXError):
-    def __init__(self, file_path: str):
-        super().__init__(f"File already exists at '{file_path}'")
 
 
 class NodeNotFoundError(HNPXError):
