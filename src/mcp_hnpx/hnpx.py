@@ -335,13 +335,10 @@ def generate_id() -> str:
     return "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
 
 
-def create_element(
-    tag: str, element_id: Optional[str] = None, summary: str = "", **attributes
-) -> etree._Element:
+def create_element(tag: str, summary: str = "", **attributes) -> etree._Element:
     """Create a new HNPX element with the given parameters."""
-    # Generate a random ID if none is provided
-    if element_id is None:
-        element_id = generate_id()
+    # Always generate a random ID
+    element_id = generate_id()
 
     element = etree.Element(tag, id=element_id, **attributes)
     summary_elem = etree.SubElement(element, "summary")
