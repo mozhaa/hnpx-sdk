@@ -52,6 +52,7 @@ def test_get_node(complete_xml_path):
 
     assert "<book" in result
     assert 'id="glyjor"' in result
+    assert 'chapter' not in result
 
 
 def test_get_node_not_found(complete_xml_path):
@@ -65,6 +66,9 @@ def test_get_subtree(complete_xml_path):
     assert "<chapter" in result
     assert 'id="3295p0"' in result
     assert "<sequence" in result
+    assert "<beat" in result
+    assert "<paragraph" in result
+    assert "One instant, I pray of you." in result
 
 
 def test_get_direct_children(complete_xml_path):
