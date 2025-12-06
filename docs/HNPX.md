@@ -29,7 +29,7 @@ The root element containing the entire work.
 
 **Children:**
 - `<summary>` (required)
-- `<chapter>` (zero or more)
+- `<chapter>`
 
 **Content:** None
 
@@ -37,9 +37,6 @@ The root element containing the entire work.
 ```xml
 <book id="a3f9b2">
   <summary>A young mage's journey to uncover her forgotten past.</summary>
-  <chapter id="k9p3q1" title="The Awakening">
-    <!-- ... -->
-  </chapter>
 </book>
 ```
 
@@ -55,7 +52,7 @@ Major narrative division with a title.
 
 **Children:**
 - `<summary>` (required)
-- `<sequence>` (zero or more)
+- `<sequence>`
 
 **Content:** None
 
@@ -63,9 +60,6 @@ Major narrative division with a title.
 ```xml
 <chapter id="k9p3q1" title="The Awakening" pov="mira">
   <summary>A young mage discovers her powers in the forbidden woods.</summary>
-  <sequence id="r4s8t6" location="Forest">
-    <!-- ... -->
-  </sequence>
 </chapter>
 ```
 
@@ -76,13 +70,13 @@ Continuous narrative in a single location and time frame.
 
 **Attributes:**
 - `id` (required): Unique identifier
-- `location` (required): Location description
+- `location` (optional): Location description
 - `time` (optional): Time indicator (e.g., "night", "next day", "flashback")
 - `pov` (optional): Overrides chapter POV if present
 
 **Children:**
 - `<summary>` (required)
-- `<beat>` (zero or more)
+- `<beat>`
 
 **Content:** None
 
@@ -90,9 +84,6 @@ Continuous narrative in a single location and time frame.
 ```xml
 <sequence id="r4s8t6" location="Forest" time="night" pov="mira">
   <summary>Mira discovers an ancient shrine.</summary>
-  <beat id="u1v7w3">
-    <!-- ... -->
-  </beat>
 </sequence>
 ```
 
@@ -106,7 +97,7 @@ Narrative unit grouping related paragraphs within a sequence.
 
 **Children:**
 - `<summary>` (required)
-- `<paragraph>` (zero or more)
+- `<paragraph>`
 
 **Content:** None
 
@@ -114,9 +105,6 @@ Narrative unit grouping related paragraphs within a sequence.
 ```xml
 <beat id="u1v7w3">
   <summary>Entering the forbidden woods.</summary>
-  <paragraph id="z5y2x4" mode="narration">
-    <!-- ... -->
-  </paragraph>
 </beat>
 ```
 
@@ -133,13 +121,12 @@ Atomic narrative unit containing prose text.
   - `internal`
 - `char` (optional): Character identifier
   - Required when `mode="dialogue"`
-  - Optional when `mode="internal"` (defaults to sequence/chapter POV)
 
 **Children:**
 - `<summary>` (required)
 - Text content (optional)
 
-**Content:** Plain text prose of the paragraph.
+**Content:** Plain text prose of the paragraph (or empty, when not complete).
 
 **Example:**
 ```xml
@@ -161,7 +148,6 @@ All `id` attributes must be:
 - Unique within the document
 - Exactly 6 characters
 - Lowercase letters (a-z) and digits (0-9) only
-- Generated randomly by tools (not sequential)
 
 Examples: `a3f9b2`, `c8e4d1`, `x7j5m2`
 
@@ -184,9 +170,6 @@ The `<summary>` element:
 Point-of-view flows down the hierarchy:
 1. Chapter `pov` sets default for all sequences
 2. Sequence `pov` overrides chapter POV for that sequence
-3. Paragraph `char` attribute identifies specific speaker/thinker
-
-If a paragraph has `mode="internal"` but no `char` attribute, it defaults to the current POV (sequence or chapter).
 
 ---
 
@@ -194,7 +177,7 @@ If a paragraph has `mode="internal"` but no `char` attribute, it defaults to the
 
 1. **`narration`** (default): Narrator's voice describing action, setting, or exposition.
 2. **`dialogue`**: Character's spoken words. Must have `char` attribute.
-3. **`internal`**: Character's thoughts. `char` optional (defaults to current POV).
+3. **`internal`**: Character's thoughts.
 
 Each paragraph should use one consistent mode.
 
@@ -248,7 +231,7 @@ A valid HNPX document must:
           "Is this... the place from my dreams?"
         </paragraph>
         
-        <paragraph id="q1w9e3" mode="internal" char="mira">
+        <paragraph id="q1w9e3" mode="internal">
           <summary>Mira's internal realization.</summary>
           This was exactly as she had dreamed it, down to the moss pattern on the stones.
         </paragraph>
@@ -269,5 +252,3 @@ HNPX enables:
 - Complete documentation (full prose ready for rendering)
 - Tool-friendly processing with unique identifiers
 - Consistent hierarchy for any narrative style
-
-All narrative content exists as plain text within `<paragraph>` elements. Rendering to final formatted prose is outside this specification's scope.
