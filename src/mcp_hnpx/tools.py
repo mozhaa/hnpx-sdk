@@ -123,17 +123,17 @@ def get_node_path(file_path: str, node_id: str) -> str:
     return "\n".join(path_xml)
 
 
-def get_document_at_depth(file_path: str, level: str = "full") -> str:
+def get_document_at_depth(file_path: str, level: str = "chapter") -> str:
     """Retrieve XML representation of document at specified depth level
 
     Args:
         file_path: Path to HNPX document
         level: Depth level - one of:
             - "book": Only book element with summary
-            - "chapter": Book with chapter children (no deeper)
+            - "chapter": Book with chapter children (no deeper, default)
             - "sequence": Book → chapters → sequences (no deeper)
             - "beat": Book → chapters → sequences → beats (no deeper)
-            - "full": Complete document with all levels (default)
+            - "full": Complete document with all levels
 
     Returns:
         XML string of document at requested depth
@@ -152,7 +152,7 @@ def get_document_at_depth(file_path: str, level: str = "full") -> str:
     root_copy = tree_copy.getroot()
 
     # Define hierarchy levels
-    hierarchy = {"book": 0, "chapter": 1, "sequence": 2, "beat": 3, "paragraph": 4}
+    hierarchy = {"book": 0, "chapter": 1, "sequence": 2, "beat": 3, "full": 5}
 
     max_depth = hierarchy[level]
 
