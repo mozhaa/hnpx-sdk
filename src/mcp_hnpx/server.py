@@ -66,6 +66,19 @@ def validate_document(tree: etree.ElementTree, schema: etree.XMLSchema) -> None:
     if not schema.validate(tree):
         raise ValidationError(schema.error_log)
 
+    error_log = []
+    # Check dialogue paragraphs have char attribute
+    for para in tree.xpath('//paragraph[@mode="dialogue"]'):
+        if not para.get('char'):
+            error_log.append(f"Dialogue paragraph {para.get('id')} missing char attribute")
+    
+    # Check non-dialogue shouldn't have char
+    for para in tree.xpath('//paragraph[@char][not(@mode="dialogue")]'):
+        error_log.append(f"Paragraph {para.get('id')} has char but mode is {para.get('mode')}")
+    
+    if len(error_log) > 0:
+        raise ValidationError(error_log)
+
 def save_document(tree: etree.ElementTree, file_path: str) -> None:
     """Save document to file with pretty printing"""
     tree.write(file_path, pretty_print=True, encoding='UTF-8', xml_declaration=True)
