@@ -1,0 +1,206 @@
+<book id="glyjor">
+  <summary>A murder investigation in the English village of King's Abbot, led by Hercule Poirot.</summary>
+  
+  <chapter id="3295p0" title="Parker" pov="sheppard">
+    <summary>Poirot questions the butler Parker about blackmail and Roger Ackroyd's murder, while Dr. Sheppard deals with his own indiscretion about the ring.</summary>
+    
+    <sequence id="104lac" location="Dr. Sheppard's thoughts" time="morning">
+      <summary>Dr. Sheppard reflects on his potential indiscretion in revealing the discovery of the ring.</summary>
+      
+      <beat id="gr5peb">
+        <summary>Sheppard's guilty conscience about spreading news of the ring.</summary>
+        
+        <paragraph id="uvxuqh" mode="internal">
+          It occurred to me the next morning that under the exhilaration produced by Tin-ho or the Perfect Winning, I might have been slightly indiscreet.
+        </paragraph>
+        
+        <paragraph id="gu81br" mode="internal">
+          True, Poirot had not asked me to keep the discovery of the ring to myself. On the other hand, he had said nothing about it whilst at Fernly, and as far as I knew, I was the only person aware that it had been found.
+        </paragraph>
+        
+        <paragraph id="ef955x" mode="internal">
+          I felt distinctly guilty. The fact was by now spreading through King's Abbot like wildfire. I was expecting wholesale reproaches from Poirot any minute.
+        </paragraph>
+      </beat>
+    </sequence>
+    
+    <sequence id="gfyjdi" location="Funeral" time="11 o'clock">
+      <summary>The joint funeral of Mrs. Ferrars and Roger Ackroyd takes place.</summary>
+      <!-- This sequence is not fully detailed yet -->
+    </sequence>
+    
+    <sequence id="4n4reu" location="The Larches" time="after funeral">
+      <summary>Poirot invites Dr. Sheppard to question Parker at his house.</summary>
+      
+      <beat id="bqrrw4">
+        <summary>Poirot reveals his plan to question Parker.</summary>
+        
+        <paragraph id="nxf930" mode="narration">
+          After it was over, Poirot, who had also been present, took me by the arm, and invited me to accompany him back to The Larches.
+        </paragraph>
+        
+        <paragraph id="9az0hl" mode="narration">
+          He was looking very grave, and I feared that my indiscretion of the night before had got round to his ears. But it soon transpired that his thoughts were occupied by something of a totally different nature.
+        </paragraph>
+        
+        <paragraph id="sz1e5w" mode="dialogue" char="poirot">
+          'See you,' he said. 'We must act. With your help I propose to examine a witness. We will question him, we will put such fear into him that the truth is bound to come out.'
+        </paragraph>
+        
+        <paragraph id="jw3mzv" mode="dialogue" char="sheppard">
+          'What witness are you talking about?' I asked, very much surprised.
+        </paragraph>
+        
+        <paragraph id="g8fawe" mode="dialogue" char="poirot">
+          'Parker!' said Poirot. 'I asked him to be at my house this morning at twelve o'clock. He should await us there at this very minute.'
+        </paragraph>
+      </beat>
+      
+      <beat id="tkzmbn">
+        <summary>Poirot's grave demeanor and cryptic comment about hoping Parker is guilty.</summary>
+        <!-- This beat is only summarized, not fully written -->
+      </beat>
+    </sequence>
+    
+    <sequence id="ti6ynv" location="The Larches" time="12 o'clock">
+      <summary>The interrogation of Parker about blackmail and his past.</summary>
+      
+      <beat id="tdyypt">
+        <summary>Initial confrontation and accusation of blackmail.</summary>
+        
+        <paragraph id="9pl2x9" mode="narration">
+          On arrival at The Larches, we were informed that Parker was already there awaiting our return. As we entered the room, the butler rose respectfully.
+        </paragraph>
+        
+        <paragraph id="1vstff" mode="dialogue" char="poirot">
+          'Good morning, Parker,' said Poirot pleasantly. 'One instant, I pray of you.'
+        </paragraph>
+        
+        <paragraph id="rqibaw" mode="narration">
+          He removed his overcoat and gloves.
+        </paragraph>
+        
+        <paragraph id="8v2mx7" mode="dialogue" char="parker">
+          'Allow me, sir,' said Parker, and sprang forward to assist him.
+        </paragraph>
+      </beat>
+      
+      <beat id="s052zd">
+        <summary>Poirot reveals his knowledge of Parker's past with Major Ellerby.</summary>
+        <!-- This beat has only summary for now -->
+      </beat>
+      
+      <beat id="en92qn">
+        <summary>Parker admits to attempting blackmail and shows his bank-book.</summary>
+        
+        <paragraph id="ybqiqe" mode="dialogue" char="parker">
+          'It's true that I tried to listen that night. A word or two I heard made me curious. And Mr Ackroyd's wanting not to be disturbed, and shutting himself up with the doctor the way he did.'
+        </paragraph>
+        
+        <paragraph id="tmwumx" mode="dialogue" char="parker">
+          'I thought that if Mr Ackroyd was being blackmailed, why shouldn't I have a share of the pickings?'
+        </paragraph>
+      </beat>
+    </sequence>
+    
+    <sequence id="km9xe8" location="The Larches" time="after Parker leaves">
+      <summary>Poirot and Sheppard discuss Parker's story and decide to visit the lawyer Hammond.</summary>
+      <!-- This sequence is not fully detailed yet -->
+    </sequence>
+    
+    <sequence id="zl919j" location="Mr. Hammond's office" time="afternoon">
+      <summary>Poirot questions the lawyer Hammond about Mrs. Ferrars' financial transactions.</summary>
+      
+      <beat id="wyxbo0">
+        <summary>Hammond reveals Mrs. Ferrars paid out at least £20,000.</summary>
+        
+        <paragraph id="76w5gp" mode="dialogue" char="hammond">
+          'During the past year, Mrs. Ferrars has sold out certain securities, and the money for them was paid into her account and not re-invested.'
+        </paragraph>
+        
+        <paragraph id="9zgowk" mode="dialogue" char="hammond">
+          'In all, I should say the various sums totalled at least twenty thousand pounds.'
+        </paragraph>
+        
+        <paragraph id="zexcv5" mode="dialogue" char="poirot">
+          'And the penalty for murder is not a pleasant one.'
+        </paragraph>
+      </beat>
+    </sequence>
+    
+    <sequence id="yg8hgi" location="Streets of King's Abbot" time="afternoon">
+      <summary>Poirot and Sheppard discuss the implications of the £20,000 and possible suspects.</summary>
+      
+      <beat id="st35bp">
+        <summary>Discussion of Parker, Raymond, and Blunt as suspects.</summary>
+        
+        <paragraph id="5oogmd" mode="dialogue" char="poirot">
+          'It is, of course, possible that he banked the money under another name, but I am disposed to believe he spoke the truth to us.'
+        </paragraph>
+        
+        <paragraph id="5zc6bn" mode="dialogue" char="poirot">
+          'That leaves us as a possibility, Raymond, or well - Major Blunt.'
+        </paragraph>
+      </beat>
+      
+      <beat id="eu9e30">
+        <summary>Poirot reveals Blunt inherited nearly £20,000.</summary>
+        <!-- Only summarized for now -->
+      </beat>
+    </sequence>
+    
+    <sequence id="4rr7j4" location="Dr. Sheppard's house" time="lunch">
+      <summary>Lunch with Caroline and discussion of the case.</summary>
+      
+      <beat id="w89own">
+        <summary>Caroline's vegetarian pretense and nut cutlet lecture.</summary>
+        <!-- Only summarized for now -->
+      </beat>
+      
+      <beat id="sk4vi7">
+        <summary>Caroline presents her theory that only Flora or Ralph could be guilty.</summary>
+        
+        <paragraph id="e8rtwr" mode="dialogue" char="caroline">
+          'As far as I can see, of the people in the house, only two could have had the chance of doing it. Ralph Paton and Flora Ackroyd.'
+        </paragraph>
+        
+        <paragraph id="ss6hxh" mode="dialogue" char="caroline">
+          'And say what you will, I don't believe Ralph Paton is a murderer. A boy we've known all our lives.'
+        </paragraph>
+      </beat>
+      
+      <beat id="eefuhj">
+        <summary>Poirot's monologue about moral weakness and blackmail.</summary>
+        <!-- Only summarized for now -->
+      </beat>
+    </sequence>
+    
+    <sequence id="t3xvkr" location="Dr. Sheppard's house" time="after lunch">
+      <summary>A telephone call announces the detention of Charles Kent in Liverpool.</summary>
+      
+      <beat id="o8sr3j">
+        <summary>The phone call about Charles Kent.</summary>
+        
+        <paragraph id="580wjo" mode="narration">
+          The telephone bell rang sharply. I went out into the hall, and took off the receiver.
+        </paragraph>
+        
+        <paragraph id="rtwwxv" mode="dialogue" char="sheppard">
+          'What?' I said. 'Yes. Dr. Sheppard speaking.'
+        </paragraph>
+        
+        <paragraph id="zyjvyr" mode="narration">
+          I listened for a minute or two, then replied briefly.
+        </paragraph>
+        
+        <paragraph id="2ue7qp" mode="narration">
+          Replacing the receiver, I went back into the drawing-room.
+        </paragraph>
+        
+        <paragraph id="fqfjok" mode="dialogue" char="sheppard">
+          'Poirot,' I said, 'they have detained a man at Liverpool. His name is Charles Kent, and he is believed to be the stranger who visited Fernly that night. They want me to go to Liverpool at once and identify him.'
+        </paragraph>
+      </beat>
+    </sequence>
+  </chapter>
+</book>

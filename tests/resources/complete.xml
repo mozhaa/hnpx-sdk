@@ -1,0 +1,35 @@
+<book id="glyjor">
+  <summary>A murder investigation in the English village of King's Abbot, led by Hercule Poirot.</summary>
+  
+  <chapter id="3295p0" title="Parker" pov="sheppard">
+    <summary>Poirot questions the butler Parker about blackmail and Roger Ackroyd's murder.</summary>
+    
+    <sequence id="104lac" location="The Larches" time="12 o'clock">
+      <summary>The interrogation of Parker begins.</summary>
+      
+      <beat id="gr5peb">
+        <summary>Initial confrontation and accusation of blackmail.</summary>
+        
+        <paragraph id="uvxuqh" mode="narration">
+          On arrival at The Larches, we were informed that Parker was already there awaiting our return.
+        </paragraph>
+        
+        <paragraph id="gu81br" mode="narration">
+          As we entered the room, the butler rose respectfully.
+        </paragraph>
+        
+        <paragraph id="ef955x" mode="dialogue" char="poirot">
+          'Good morning, Parker,' said Poirot pleasantly. 'One instant, I pray of you.'
+        </paragraph>
+        
+        <paragraph id="bqrrw4" mode="narration">
+          He removed his overcoat and gloves.
+        </paragraph>
+        
+        <paragraph id="nxf930" mode="dialogue" char="parker">
+          'Allow me, sir,' said Parker, and sprang forward to assist him.
+        </paragraph>
+      </beat>
+    </sequence>
+  </chapter>
+</book>
