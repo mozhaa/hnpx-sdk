@@ -1,7 +1,6 @@
 import random
 import string
 from typing import Optional
-from copy import deepcopy
 from lxml import etree
 
 from . import hnpx
@@ -68,6 +67,11 @@ def get_node(file_path: str, node_id: str) -> str:
 
     if node is None:
         raise NodeNotFoundError(node_id)
+
+    # Keep only current node and it's summary
+    for child in node:
+        if child.tag != "summary":
+            node.remove(child)
 
     # Return node with all attributes and summary child
     return etree.tostring(node, encoding="unicode", method="html")
