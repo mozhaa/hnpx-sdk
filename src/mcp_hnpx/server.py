@@ -459,6 +459,147 @@ def reorder_children(file_path: str, parent_id: str, child_ids: list) -> str:
     return f"Reordered children of node {parent_id}"
 
 # ============================================================================
+# Node Modification Tools
+# ============================================================================
+
+@app.tool()
+def edit_summary(file_path: str, node_id: str, new_summary: str) -> str:
+    """Edit summary text of any element"""
+    tree = parse_document(file_path)
+    node = find_node(tree, node_id)
+    
+    if node is None:
+        raise NodeNotFoundError(node_id)
+    
+    # Find the summary child element
+    summary_elem = node.find("summary")
+    if summary_elem is None:
+        # Create summary if it doesn't exist (shouldn't happen with valid HNPX)
+        summary_elem = etree.SubElement(node, "summary")
+    
+    # Update the summary text
+    summary_elem.text = new_summary
+    
+    # Validate and save
+    schema = load_schema()
+    validate_document(tree, schema)
+    save_document(tree, file_path)
+    
+    return f"Updated summary for node {node_id}"
+
+@app.tool()
+def edit_paragraph_text(file_path: str, paragraph_id: str, new_text: str) -> str:
+    """Edit actual paragraph content"""
+    tree = parse_document(file_path)
+    paragraph = find_node(tree, paragraph_id)
+    
+    if paragraph is None:
+        raise NodeNotFoundError(paragraph_id)
+    
+    # Verify it's a paragraph element
+    if paragraph.tag != "paragraph":
+        raise InvalidOperationError("edit_paragraph_text", f"Node {paragraph_id} is not a paragraph")
+    
+    # Update the paragraph text content
+    paragraph.text = new_text
+    
+    # Validate and save
+    schema = load_schema()
+    validate_document(tree, schema)
+    save_document(tree, file_path)
+    
+    return f"Updated text content for paragraph {paragraph_id}"
+
+@app.tool()
+def move_node(file_path: str, node_id: str, new_parent_id: str, position: Optional[int] = None) -> str:
+    """Move nodes between parents"""
+    tree = parse_document(file_path)
+    node = find_node(tree, node_id)
+    new_parent = find_node(tree, new_parent_id)
+    
+    if node is None:
+        raise NodeNotFoundError(node_id)
+    
+    if new_parent is None:
+        raise NodeNotFoundError(new_parent_id)
+    
+    # Check if trying to move root
+    if node.tag == "book":
+        raise InvalidOperationError("move_node", "Cannot move book element")
+    
+    # Check hierarchy validity
+    valid_hierarchy = {
+        "book": ["chapter"],
+        "chapter": ["sequence"],
+        "sequence": ["beat"],
+        "beat": ["paragraph"]
+    }
+    
+    if new_parent.tag not in valid_hierarchy or node.tag not in valid_hierarchy[new_parent.tag]:
+        raise InvalidHierarchyError(new_parent.tag, node.tag)
+    
+    # Check if trying to move a node to its own descendant
+    current = new_parent
+    while current is not None:
+        if current == node:
+            raise InvalidOperationError("move_node", "Cannot move a node to its own descendant")
+        current = current.getparent()
+    
+    # Get old parent
+    old_parent = node.getparent()
+    
+    # Remove from old parent
+    old_parent.remove(node)
+    
+    # Add to new parent
+    if position is None:
+        # Append to the end
+        new_parent.append(node)
+    else:
+        # Insert at specific position
+        # Get current children (excluding summary)
+        children = [child for child in new_parent if child.tag != "summary"]
+        
+        if position < 0 or position > len(children):
+            raise InvalidOperationError("move_node", f"Position {position} out of range (0-{len(children)})")
+        
+        if position == len(children):
+            new_parent.append(node)
+        else:
+            new_parent.insert(position + (1 if new_parent[0].tag == "summary" else 0), node)
+    
+    # Validate and save
+    schema = load_schema()
+    validate_document(tree, schema)
+    save_document(tree, file_path)
+    
+    return f"Moved node {node_id} to parent {new_parent_id}"
+
+@app.tool()
+def remove_node_children(file_path: str, node_id: str) -> str:
+    """Remove all children of a node"""
+    tree = parse_document(file_path)
+    node = find_node(tree, node_id)
+    
+    if node is None:
+        raise NodeNotFoundError(node_id)
+    
+    children_count = 0
+
+    # Remove all children except summary
+    for child in list(node):
+        if child.tag != "summary":
+            node.remove(child)
+            children_count += 1
+    
+    # Validate and save
+    schema = load_schema()
+    validate_document(tree, schema)
+    save_document(tree, file_path)
+    
+    return f"Removed {children_count} children from node {node_id}"
+
+# ============================================================================
 # Rendering & Export Tools
 # ============================================================================
 
