@@ -50,6 +50,25 @@ get_next_empty_container("my_story.xml")
 # Returns: <beat id="xyz789"><summary>Empty beat</summary></beat>
 ```
 
+### get_next_empty_container_in_node
+
+**Description:** Find the next container node that needs children within a specific node's subtree, searched in breadth-first order. Container nodes include book, chapter, sequence, beat, and empty paragraphs.
+
+**Parameters:**
+- `file_path` (string, required): Path to the HNPX document
+- `node_id` (string, required): ID of the node to search within
+
+**Returns:** XML representation of the empty container node, or a message if no empty containers exist within the specified node
+
+**Errors:**
+- `NodeNotFoundError`: Raised if the node with the specified ID is not found
+
+**Example:**
+```python
+get_next_empty_container_in_node("my_story.xml", "abc123")
+# Returns: <beat id="xyz789"><summary>Empty beat</summary></beat>
+```
+
 ### get_node
 
 **Description:** Retrieve XML representation of a specific node without its descendants.

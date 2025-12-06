@@ -91,13 +91,19 @@ def get_child_count(node: etree.Element) -> int:
     """Get count of children excluding summary"""
     return len([child for child in node if child.tag != "summary"])
 
-def find_first_empty_container(tree: etree.ElementTree) -> Optional[etree.Element]:
+def find_first_empty_container(tree: etree.ElementTree, start_node: Optional[etree.Element] = None) -> Optional[etree.Element]:
     """
     Find first container node with no children (BFS order).
     Container nodes: book, chapter, sequence, beat
+    
+    Args:
+        tree: The XML document tree
+        start_node: If provided, search only within this node's subtree. If None, search from root.
     """
-    root = tree.getroot()
-    queue = [root]
+    if start_node is None:
+        start_node = tree.getroot()
+    
+    queue = [start_node]
     
     while queue:
         node = queue.pop(0)
@@ -173,6 +179,23 @@ def get_next_empty_container(file_path: str) -> str:
     
     if empty_node is None:
         return "No empty containers found - document is fully expanded"
+    
+    # Return node XML (like get_node)
+    return etree.tostring(empty_node, encoding='unicode')
+
+@app.tool()
+def get_next_empty_container_in_node(file_path: str, node_id: str) -> str:
+    """Find next container node that needs children within a specific node's subtree (BFS order)"""
+    tree = parse_document(file_path)
+    start_node = find_node(tree, node_id)
+    
+    if start_node is None:
+        raise NodeNotFoundError(node_id)
+    
+    empty_node = find_first_empty_container(tree, start_node)
+    
+    if empty_node is None:
+        return f"No empty containers found within node {node_id}"
     
     # Return node XML (like get_node)
     return etree.tostring(empty_node, encoding='unicode')
