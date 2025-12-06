@@ -52,7 +52,7 @@ def test_get_node(complete_xml_path):
 
     assert "<book" in result
     assert 'id="glyjor"' in result
-    assert 'chapter' not in result
+    assert "chapter" not in result
 
 
 def test_get_node_not_found(complete_xml_path):
@@ -76,10 +76,10 @@ def test_get_direct_children(complete_xml_path):
 
     assert "<sequence" in result
     assert 'id="104lac"' in result
-    assert 'beat' not in result
-    assert 'paragraph' not in result
-    assert 'The interrogation of Parker begins.' in result
-    assert 'As we entered the room' not in result
+    assert "beat" not in result
+    assert "paragraph" not in result
+    assert "The interrogation of Parker begins." in result
+    assert "As we entered the room" not in result
 
 
 def test_get_node_path(complete_xml_path):
@@ -183,9 +183,7 @@ def test_create_paragraph_dialogue_missing_char(temp_file, complete_xml_path):
         f.write(open(complete_xml_path).read())
 
     with pytest.raises(MissingAttributeError):
-        tools.create_paragraph(
-            temp_file, "gr5peb", "Test text", "dialogue"
-        )
+        tools.create_paragraph(temp_file, "gr5peb", "Test text", "dialogue")
 
 
 def test_edit_node_attributes(complete_xml_path, temp_file):

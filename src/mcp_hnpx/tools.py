@@ -1,6 +1,7 @@
 import random
 import string
-from typing import Optional
+from typing import Any, Optional
+
 from lxml import etree
 
 from . import hnpx
@@ -16,7 +17,7 @@ from .exceptions import (
 
 def create_document(file_path: str) -> str:
     """Create a new empty HNPX document
-    
+
     Args:
         file_path (str): Path where the new HNPX document will be created
     """
@@ -37,10 +38,10 @@ def create_document(file_path: str) -> str:
 
 def get_next_empty_container(file_path: str) -> str:
     """Find next container node that needs children (BFS order)
-    
+
     Args:
         file_path (str): Path to the HNPX document
-        
+
     Returns:
         str: XML representation of the next empty container node or a message if none found
     """
@@ -56,11 +57,11 @@ def get_next_empty_container(file_path: str) -> str:
 
 def get_next_empty_container_in_node(file_path: str, node_id: str) -> str:
     """Find next container node that needs children within a specific node's subtree (BFS order)
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to search within
-        
+
     Returns:
         str: XML representation of the next empty container node or a message if none found
     """
@@ -78,18 +79,20 @@ def get_next_empty_container_in_node(file_path: str, node_id: str) -> str:
     # Return node XML (like get_node)
     return etree.tostring(empty_node, encoding="unicode", method="html")
 
+
 def _remove_children(node: Any) -> None:
     for child in node:
         if child.tag != "summary":
             node.remove(child)
 
+
 def get_node(file_path: str, node_id: str) -> str:
     """Retrieve XML representation of a specific node (without descendants)
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to retrieve
-        
+
     Returns:
         str: XML representation of the node with its attributes and summary child only
     """
@@ -107,11 +110,11 @@ def get_node(file_path: str, node_id: str) -> str:
 
 def get_subtree(file_path: str, node_id: str) -> str:
     """Retrieve XML representation of node including all descendants
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to retrieve
-        
+
     Returns:
         str: XML representation of the node and all its descendants
     """
@@ -126,11 +129,11 @@ def get_subtree(file_path: str, node_id: str) -> str:
 
 def get_direct_children(file_path: str, node_id: str) -> str:
     """Retrieve immediate child nodes of a specified parent
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the parent node
-        
+
     Returns:
         str: Concatenated XML representation of all direct child nodes
     """
@@ -153,11 +156,11 @@ def get_direct_children(file_path: str, node_id: str) -> str:
 
 def get_node_path(file_path: str, node_id: str) -> str:
     """Return hierarchical path from document root to specified node
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the target node
-        
+
     Returns:
         str: Concatenated XML representation of all nodes in the path from root to target
     """
@@ -184,11 +187,11 @@ def get_node_path(file_path: str, node_id: str) -> str:
 
 def get_document_at_depth(file_path: str, level: str = "chapter") -> str:
     """Retrieve XML representation of document at specified depth level
-    
+
     Args:
         file_path (str): Path to the HNPX document
         level (str): Depth level - one of: "book", "chapter", "sequence", "beat", "full"
-        
+
     Returns:
         str: XML representation of the document pruned to the specified depth
     """
@@ -274,7 +277,7 @@ def create_chapter(
     file_path: str, parent_id: str, title: str, summary: str, pov: Optional[str] = None
 ) -> str:
     """Create a new chapter element
-    
+
     Args:
         file_path (str): Path to the HNPX document
         parent_id (str): ID of the parent book element
@@ -304,7 +307,7 @@ def create_sequence(
     pov: Optional[str] = None,
 ) -> str:
     """Create a new sequence element
-    
+
     Args:
         file_path (str): Path to the HNPX document
         parent_id (str): ID of the parent chapter element
@@ -330,7 +333,7 @@ def create_sequence(
 
 def create_beat(file_path: str, parent_id: str, summary: str) -> str:
     """Create a new beat element
-    
+
     Args:
         file_path (str): Path to the HNPX document
         parent_id (str): ID of the parent sequence element
@@ -353,7 +356,7 @@ def create_paragraph(
     char: Optional[str] = None,
 ) -> str:
     """Create a new paragraph element
-    
+
     Args:
         file_path (str): Path to the HNPX document
         parent_id (str): ID of the parent beat element
@@ -391,7 +394,7 @@ def create_paragraph(
 
 def edit_node_attributes(file_path: str, node_id: str, attributes: dict) -> str:
     """Modify attributes of an existing node
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to modify
@@ -423,7 +426,7 @@ def edit_node_attributes(file_path: str, node_id: str, attributes: dict) -> str:
 
 def remove_node(file_path: str, node_id: str) -> str:
     """Permanently remove a node and all its descendants
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to remove
@@ -449,7 +452,7 @@ def remove_node(file_path: str, node_id: str) -> str:
 
 def reorder_children(file_path: str, parent_id: str, child_ids: list) -> str:
     """Reorganize the order of child elements
-    
+
     Args:
         file_path (str): Path to the HNPX document
         parent_id (str): ID of the parent node
@@ -489,7 +492,7 @@ def reorder_children(file_path: str, parent_id: str, child_ids: list) -> str:
 
 def edit_summary(file_path: str, node_id: str, new_summary: str) -> str:
     """Edit summary text of any element
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node containing the summary
@@ -517,7 +520,7 @@ def edit_summary(file_path: str, node_id: str, new_summary: str) -> str:
 
 def edit_paragraph_text(file_path: str, paragraph_id: str, new_text: str) -> str:
     """Edit actual paragraph content
-    
+
     Args:
         file_path (str): Path to the HNPX document
         paragraph_id (str): ID of the paragraph element to modify
@@ -547,7 +550,7 @@ def move_node(
     file_path: str, node_id: str, new_parent_id: str, position: Optional[int] = None
 ) -> str:
     """Move nodes between parents
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to move
@@ -625,7 +628,7 @@ def move_node(
 
 def remove_node_children(file_path: str, node_id: str) -> str:
     """Remove all children of a node
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the parent node
@@ -693,11 +696,11 @@ def _render_node_recursive(node: etree.Element, indent: int = 0) -> str:
 
 def render_node(file_path: str, node_id: str) -> str:
     """Render a node and descendants as formatted text
-    
+
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to render
-        
+
     Returns:
         str: Formatted text representation of the node and its descendants
     """
@@ -712,10 +715,10 @@ def render_node(file_path: str, node_id: str) -> str:
 
 def render_document(file_path: str) -> str:
     """Export entire document to plain text
-    
+
     Args:
         file_path (str): Path to the HNPX document
-        
+
     Returns:
         str: Complete document rendered as readable plain text
     """

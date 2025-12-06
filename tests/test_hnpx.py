@@ -163,7 +163,7 @@ def test_render_paragraph_dialogue():
     paragraph.text = "Hello there!"
 
     result = hnpx.render_paragraph(paragraph)
-    assert result == 'john: Hello there!'
+    assert result == "john: Hello there!"
 
 
 def test_render_paragraph_internal():
