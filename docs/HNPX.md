@@ -137,7 +137,7 @@ Atomic narrative unit containing prose text.
 
 **Children:**
 - `<summary>` (required)
-- Text content (required)
+- Text content (optional)
 
 **Content:** Plain text prose of the paragraph.
 
@@ -150,7 +150,6 @@ Atomic narrative unit containing prose text.
 
 <paragraph id="l2k8j5" mode="dialogue" char="mira">
   <summary>Mira speaks her doubt.</summary>
-  "Is this... the place from my dreams?"
 </paragraph>
 ```
 
@@ -209,9 +208,8 @@ A valid HNPX document must:
 3. Have all required attributes present
 4. Have unique `id` values throughout
 5. Have `<summary>` child for every container
-6. Have paragraph text content not empty
-7. Have `char` attribute when `mode="dialogue"`
-8. Maintain the hierarchy: book → chapter → sequence → beat → paragraph
+6. Have `char` attribute when `mode="dialogue"`
+7. Maintain the hierarchy: book → chapter → sequence → beat → paragraph
 
 ---
 
