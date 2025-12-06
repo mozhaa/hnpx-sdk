@@ -123,20 +123,14 @@ Atomic narrative unit containing prose text.
   - Required when `mode="dialogue"`
 
 **Children:**
-- `<summary>` (required)
-- Text content (optional)
+- Text content (required)
 
-**Content:** Plain text prose of the paragraph (or empty, when not complete).
+**Content:** Plain text prose of the paragraph.
 
 **Example:**
 ```xml
 <paragraph id="z5y2x4" mode="narration">
-  <summary>Mira pushes through the undergrowth.</summary>
   Mira pushed through the thick undergrowth, her breath fogging in the cold air.
-</paragraph>
-
-<paragraph id="l2k8j5" mode="dialogue" char="mira">
-  <summary>Mira speaks her doubt.</summary>
 </paragraph>
 ```
 
