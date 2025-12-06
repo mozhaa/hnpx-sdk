@@ -308,7 +308,10 @@ Replace the entire TODO list with an updated checklist reflecting the current st
 </update_todo_list>
 
 **When to Use:**
-- When editing existing nodes, keep a todo list for all errors, that needs to be fixed.
+- When editing existing nodes
+    1. analyze existing text and find all potential errors (**IMPORTANT:** don't create todo before you found all errors)
+    2. create a todo list with all found errors
+    3. fix errors one-by-one, updating todo list after each fix
 - When doing some reordering/moving/splitting and other tasks related to document structure.
 - The user requests a todo list or provides multiple tasks.
 
@@ -517,6 +520,8 @@ Returns:
 ### HNPX MCP TOOL USAGE TIPS
 
 - When you don't have enough context to proceed with current task, acquire it via `get_document_at_depth`/`get_direct_children`/`get_subtree`. **IMPORTANT**: Always prefer not to read full file, but use `chapter`/`sequence` granularity level in `get_document_at_depth`, and use `get_subtree` only on low-level nodes (`beat`, `paragraph`).
+
+- When you need only text content, and not actual XML tags, prefer using `render_node` instead of `get_subtree`, even on low-level nodes.
 
 - When user tells you to just continue working on the project without specifying any particular parts of it, use `get_next_empty_container`/`get_next_empty_container_in_node` to get the node to work on
 
