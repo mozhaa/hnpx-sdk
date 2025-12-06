@@ -139,6 +139,7 @@ def get_document_at_depth(file_path: str, level: str = "chapter") -> str:
         XML string of document at requested depth
     """
     tree = hnpx.parse_document(file_path)
+    root = tree.getroot()
 
     # Validate level parameter
     valid_levels = ["book", "chapter", "sequence", "beat", "full"]
@@ -146,10 +147,6 @@ def get_document_at_depth(file_path: str, level: str = "chapter") -> str:
         raise InvalidAttributeError(
             "level", level, f"Must be one of: {', '.join(valid_levels)}"
         )
-
-    # Create a copy of the tree to modify
-    tree_copy = deepcopy(tree)
-    root_copy = tree_copy.getroot()
 
     # Define hierarchy levels
     hierarchy = {"book": 0, "chapter": 1, "sequence": 2, "beat": 3, "full": 5}
@@ -174,10 +171,10 @@ def get_document_at_depth(file_path: str, level: str = "chapter") -> str:
                     prune_tree(child, current_depth + 1)
 
     # Start pruning from the root (book is at depth 0)
-    prune_tree(root_copy, 0)
+    prune_tree(root, 0)
 
     # Return the pruned tree as XML
-    return etree.tostring(root_copy, encoding="unicode", pretty_print=True)
+    return etree.tostring(root, encoding="unicode", pretty_print=True)
 
 
 def _create_element(
