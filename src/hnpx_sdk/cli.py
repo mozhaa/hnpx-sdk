@@ -32,7 +32,11 @@ def parse_args() -> argparse.Namespace:
         "list-tools", description="list available MCP tools"
     )
     list_tools_parser.add_argument(
-        "-l", "--long", action="store_true", help="show tool descriptions"
+        "-f",
+        "--format",
+        type=str,
+        choices=["minimal", "medium", "markdown"],
+        help="output format",
     )
     list_tools_parser.set_defaults(func=list_tools)
 
@@ -68,12 +72,23 @@ def list_tools(args: argparse.Namespace) -> None:
 
     async def f() -> None:
         tools = await app.get_tools()
-        for name, tool in tools.items():
-            if args.long:
-                print(f"- {name}: {tool.description}")
+        if args.format == "markdown":
+            print("# Available MCP Tools\n")
+            print("### Navigation:")
+            for name, tool in tools.items():
+                print(f"- [{name}](#{name})")
+            print()
+            for name, tool in tools.items():
+                print(f"## `{name}`")
+                print(f"{tool.description}")
                 print()
-            else:
-                print(name)
+        else:
+            for name, tool in tools.items():
+                if args.format == "minimal":
+                    print(name)
+                elif args.format == "medium":
+                    print(f"- {name}: {tool.description}")
+                    print()
 
     asyncio.run(f())
 
