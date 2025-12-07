@@ -13,7 +13,7 @@ app.tool()(tools.get_node)
 # Node Inspection Tools
 app.tool()(tools.get_subtree)
 app.tool()(tools.get_children)
-app.tool()(tools.get_node_path)
+app.tool()(tools.get_path)
 
 # Node Creation Tools
 app.tool()(tools.create_chapter)

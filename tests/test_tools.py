@@ -70,8 +70,8 @@ def test_get_children(complete_xml_path):
     assert "As we entered the room" not in result
 
 
-def test_get_node_path(complete_xml_path):
-    result = tools.get_node_path(str(complete_xml_path), "gr5peb")
+def test_get_path(complete_xml_path):
+    result = tools.get_path(str(complete_xml_path), "gr5peb")
 
     assert "<book" in result
     assert "<chapter" in result

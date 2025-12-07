@@ -179,7 +179,7 @@ def get_children(file_path: str, node_id: str) -> str:
     return "\n".join(children_xml)
 
 
-def get_node_path(file_path: str, node_id: str) -> str:
+def get_path(file_path: str, node_id: str) -> str:
     """Return hierarchical path from document root to specified node
 
     Args:
