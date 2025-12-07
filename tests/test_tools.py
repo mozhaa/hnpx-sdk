@@ -388,8 +388,15 @@ def test_remove_node_children_not_found(complete_xml_path, temp_file):
 def test_render_node(complete_xml_path):
     result = tools.render_node(str(complete_xml_path), "gr5peb")
 
-    assert "[gr5peb] Beat: Initial confrontation and accusation of blackmail." in result
     assert "On arrival at The Larches" in result
+    assert "'Good morning, Parker,' said Poirot pleasantly. 'One instant, I pray of you.'" in result
+
+
+def test_render_node_with_ids(complete_xml_path):
+    result = tools.render_node(str(complete_xml_path), "gr5peb", show_ids=True)
+
+    assert "[uvxuqh] On arrival at The Larches, we were informed that Parker was already there awaiting our return." in result
+    assert "[ef955x] 'Good morning, Parker,' said Poirot pleasantly. 'One instant, I pray of you.'" in result
 
 
 def test_render_node_not_found(complete_xml_path):
@@ -401,7 +408,7 @@ def test_render_document(complete_xml_path):
     result = tools.render_document(str(complete_xml_path))
 
     assert "On arrival at The Larches" in result
-    assert "poirot: 'Good morning, Parker,'" in result
+    assert "'Good morning, Parker,' said Poirot pleasantly. 'One instant, I pray of you.'" in result
 
 
 def test_unicode_xml_output(unicode_xml_path, temp_file):

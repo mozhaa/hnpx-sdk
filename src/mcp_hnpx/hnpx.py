@@ -127,18 +127,5 @@ def find_first_empty_container(
 
 
 def render_paragraph(paragraph: etree.Element) -> str:
-    """Render a single paragraph based on its mode"""
-    text = (paragraph.text or "").strip()
-    mode = paragraph.get("mode", "narration")
-    char = paragraph.get("char", "")
-
-    # Only render if there's actual text content
-    if not text:
-        return ""
-
-    if mode == "dialogue" and char:
-        return f"{char}: {text}"
-    elif mode == "internal":
-        return f"*{text}*"
-    else:
-        return text
+    """Render a single paragraph as plain text"""
+    return (paragraph.text or "").strip()

@@ -599,57 +599,38 @@ def remove_node_children(file_path: str, node_id: str) -> str:
     return f"Removed {children_count} children from node {node_id}"
 
 
-def _render_node_recursive(node: etree.Element, indent: int = 0) -> str:
-    """Recursively render node and children as formatted text"""
-    lines = []
-    indent_str = "  " * indent
-
-    # Get node info
-    node_id = node.get("id", "")
-    summary = node.findtext("summary", "").strip()
-
-    # Render based on node type
-    if node.tag == "book":
-        lines.append(f"{indent_str}[{node_id}] Book: {summary}")
-    elif node.tag == "chapter":
-        title = node.get("title", "")
-        pov = node.get("pov", "")
-        pov_str = f" (POV: {pov})" if pov else ""
-        lines.append(f"{indent_str}[{node_id}] Chapter: {title}{pov_str}")
-        lines.append(f"{indent_str}  Summary: {summary}")
-    elif node.tag == "sequence":
-        location = node.get("location", "")
-        time = node.get("time", "")
-        pov = node.get("pov", "")
-        time_str = f" at {time}" if time else ""
-        pov_str = f" (POV: {pov})" if pov else ""
-        lines.append(f"{indent_str}[{node_id}] Sequence: {location}{time_str}{pov_str}")
-        lines.append(f"{indent_str}  Summary: {summary}")
-    elif node.tag == "beat":
-        lines.append(f"{indent_str}[{node_id}] Beat: {summary}")
-    elif node.tag == "paragraph":
-        lines.append(f"{indent_str}[{node_id}] {summary}")
+def _render_paragraphs_recursive(node: etree.Element, show_ids: bool) -> list:
+    """Recursively collect all paragraphs from node and its descendants"""
+    paragraphs = []
+    
+    # Check if current node is a paragraph
+    if node.tag == "paragraph":
+        node_id = node.get("id", "")
         rendered_text = hnpx.render_paragraph(node)
         if rendered_text:
-            lines.append(f"{indent_str}  {rendered_text}")
-
-    # Recursively render children (excluding summary)
+            if show_ids:
+                paragraphs.append(f"[{node_id}] {rendered_text}")
+            else:
+                paragraphs.append(rendered_text)
+    
+    # Recursively process children (excluding summary)
     for child in node:
         if child.tag != "summary":
-            lines.append(_render_node_recursive(child, indent + 1))
+            paragraphs.extend(_render_paragraphs_recursive(child, show_ids))
+    
+    return paragraphs
 
-    return "\n".join(lines)
 
-
-def render_node(file_path: str, node_id: str) -> str:
-    """Render a node and descendants as formatted text
+def render_node(file_path: str, node_id: str, show_ids: bool = False) -> str:
+    """Render ONLY paragraphs from subtree of current node
 
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to render
+        show_ids (bool): Whether to show paragraph IDs in square brackets
 
     Returns:
-        str: Formatted text representation of the node and its descendants
+        str: Formatted text representation of paragraphs from the node's subtree
     """
     tree = hnpx.parse_document(file_path)
     node = hnpx.find_node(tree, node_id)
@@ -657,7 +638,8 @@ def render_node(file_path: str, node_id: str) -> str:
     if node is None:
         raise NodeNotFoundError(node_id)
 
-    return _render_node_recursive(node)
+    paragraphs = _render_paragraphs_recursive(node, show_ids)
+    return "\n\n".join(paragraphs)
 
 
 def render_document(file_path: str) -> str:
