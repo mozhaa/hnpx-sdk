@@ -32,7 +32,6 @@ app.tool()(tools.remove_node_children)
 
 # Rendering & Export Tools
 app.tool()(tools.render_node)
-app.tool()(tools.render_document)
 
 
 if __name__ == "__main__":

@@ -404,11 +404,6 @@ def test_render_node_not_found(complete_xml_path):
         tools.render_node(str(complete_xml_path), "nonexistent")
 
 
-def test_render_document(complete_xml_path):
-    result = tools.render_document(str(complete_xml_path))
-
-    assert "On arrival at The Larches" in result
-    assert "'Good morning, Parker,' said Poirot pleasantly. 'One instant, I pray of you.'" in result
 
 
 def test_unicode_xml_output(unicode_xml_path, temp_file):

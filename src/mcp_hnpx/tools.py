@@ -642,21 +642,3 @@ def render_node(file_path: str, node_id: str, show_ids: bool = False) -> str:
     return "\n\n".join(paragraphs)
 
 
-def render_document(file_path: str) -> str:
-    """Export entire document to plain text
-
-    Args:
-        file_path (str): Path to the HNPX document
-
-    Returns:
-        str: Complete document rendered as readable plain text
-    """
-    tree = hnpx.parse_document(file_path)
-
-    paragraphs = []
-    for paragraph in tree.xpath("//paragraph"):
-        rendered = hnpx.render_paragraph(paragraph)
-        if rendered:
-            paragraphs.append(rendered)
-
-    return "\n\n".join(paragraphs)
