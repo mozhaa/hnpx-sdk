@@ -16,7 +16,7 @@ def load_schema() -> etree.XMLSchema:
 
     @cache
     def load_schema_doc() -> str:
-        schema_path = Path(__file__) / "resources" / "HNPX.xml"
+        schema_path = Path(__file__).parent / "resources" / "HNPX.xml"
         return etree.parse(str(schema_path))
 
     return etree.XMLSchema(load_schema_doc())
