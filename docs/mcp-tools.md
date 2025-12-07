@@ -187,6 +187,7 @@ Args:
     file_path (str): Path to the HNPX document
     node_id (str): ID of the node to render
     show_ids (bool): Whether to show paragraph IDs in square brackets
+    show_markers (bool): Whether to mark chapter/sequence beginnings
 
 Returns:
     str: Formatted text representation the node

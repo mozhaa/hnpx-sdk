@@ -124,8 +124,3 @@ def find_first_empty_container(
         queue.extend([child for child in node if child.tag != "summary"])
 
     return None
-
-
-def render_paragraph(paragraph: etree.Element) -> str:
-    """Render a single paragraph as plain text"""
-    return (paragraph.text or "").strip()

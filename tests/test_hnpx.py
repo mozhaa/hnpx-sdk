@@ -148,35 +148,3 @@ def test_find_first_empty_container_with_start_node(incomplete_xml_path):
     assert empty is not None
     assert empty.tag == "beat"
     assert empty.get("id") == "gr5peb"
-
-
-def test_render_paragraph_narration():
-    paragraph = etree.Element("paragraph", mode="narration")
-    paragraph.text = "This is a test paragraph."
-
-    result = hnpx.render_paragraph(paragraph)
-    assert result == "This is a test paragraph."
-
-
-def test_render_paragraph_dialogue():
-    paragraph = etree.Element("paragraph", mode="dialogue", char="john")
-    paragraph.text = "Hello there!"
-
-    result = hnpx.render_paragraph(paragraph)
-    assert result == "Hello there!"
-
-
-def test_render_paragraph_internal():
-    paragraph = etree.Element("paragraph", mode="internal")
-    paragraph.text = "This is a thought."
-
-    result = hnpx.render_paragraph(paragraph)
-    assert result == "This is a thought."
-
-
-def test_render_paragraph_empty():
-    paragraph = etree.Element("paragraph", mode="narration")
-    paragraph.text = ""
-
-    result = hnpx.render_paragraph(paragraph)
-    assert result == ""

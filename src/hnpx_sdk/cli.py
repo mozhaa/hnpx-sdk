@@ -20,6 +20,11 @@ def parse_args() -> argparse.Namespace:
         help="output format",
     )
     render_parser.add_argument(
+        "--no-section-marks",
+        action="store_true",
+        help="don't mark chapter/sequence beginnings",
+    )
+    render_parser.add_argument(
         "-o",
         "--output",
         type=str,
@@ -36,6 +41,7 @@ def parse_args() -> argparse.Namespace:
         "--format",
         type=str,
         choices=["minimal", "medium", "markdown"],
+        default="minimal",
         help="output format",
     )
     list_tools_parser.set_defaults(func=list_tools)
@@ -51,7 +57,12 @@ def render(args: argparse.Namespace) -> None:
         from .tools import get_root_id, render_node
 
         root_id = get_root_id(args.file)
-        rendered = render_node(args.file, root_id, args.format == "plain_with_ids")
+        rendered = render_node(
+            args.file,
+            root_id,
+            args.format == "plain_with_ids",
+            not args.no_section_marks,
+        )
 
         if args.output:
             with open(args.output, "w+", encoding="utf-8") as f:

@@ -618,35 +618,49 @@ def remove_node_children(file_path: str, node_id: str) -> str:
     return f"Removed {children_count} children from node {node_id}"
 
 
-def _render_paragraphs_recursive(node: etree.Element, show_ids: bool) -> list:
-    """Recursively collect all paragraphs from node and its descendants"""
-    paragraphs = []
+def _render_paragraphs_recursive(
+    node: etree.Element,
+    show_ids: bool,
+    show_markers: bool,
+    is_first_child: bool = False,
+) -> str:
+    """Recursively print all paragraphs"""
 
-    # Check if current node is a paragraph
+    result = ""
     if node.tag == "paragraph":
-        node_id = node.get("id", "")
-        rendered_text = hnpx.render_paragraph(node)
+        node_id = node.get("id")
+        rendered_text = (node.text or "").strip()
         if rendered_text:
             if show_ids:
-                paragraphs.append(f"[{node_id}] {rendered_text}")
+                result += f"[{node_id}] {rendered_text}\n\n"
             else:
-                paragraphs.append(rendered_text)
+                result += rendered_text + "\n\n"
+    else:
+        if node.tag == "chapter":
+            result += f"=== {node.get('title')} ===\n\n"
+        elif node.tag == "sequence" and not is_first_child:
+            result += "***\n\n"
+        is_first_child = True
+        for child in node:
+            if child.tag != "summary":
+                result += _render_paragraphs_recursive(
+                    child, show_ids, show_markers, is_first_child
+                )
+                is_first_child = False
 
-    # Recursively process children (excluding summary)
-    for child in node:
-        if child.tag != "summary":
-            paragraphs.extend(_render_paragraphs_recursive(child, show_ids))
-
-    return paragraphs
+    return result
 
 
-def render_node(file_path: str, node_id: str, show_ids: bool = False) -> str:
+def render_node(
+    file_path: str, node_id: str, show_ids: bool = False, show_markers: bool = True
+) -> str:
     """Render text representation of the node (only descendent paragraphs)
 
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to render
         show_ids (bool): Whether to show paragraph IDs in square brackets
+        show_markers (bool): Whether to mark chapter/sequence beginnings
 
     Returns:
         str: Formatted text representation the node
@@ -657,5 +671,4 @@ def render_node(file_path: str, node_id: str, show_ids: bool = False) -> str:
     if node is None:
         raise NodeNotFoundError(node_id)
 
-    paragraphs = _render_paragraphs_recursive(node, show_ids)
-    return "\n\n".join(paragraphs)
+    return _render_paragraphs_recursive(node, show_ids, show_markers).strip()
