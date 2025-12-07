@@ -6,6 +6,7 @@ def parse_args() -> argparse.Namespace:
         prog="hnpx-tools", description="perform some basic actions on HNPX documents"
     )
     subparsers = parser.add_subparsers(title="actions")
+
     render_parser = subparsers.add_parser(
         "render", description="render an HNPX document into some format"
     )
@@ -26,6 +27,14 @@ def parse_args() -> argparse.Namespace:
         help="path to output file (default: stdout)",
     )
     render_parser.set_defaults(func=render)
+
+    list_tools_parser = subparsers.add_parser(
+        "list-tools", description="list available MCP tools"
+    )
+    list_tools_parser.add_argument(
+        "-l", "--long", action="store_true", help="show tool descriptions"
+    )
+    list_tools_parser.set_defaults(func=list_tools)
 
     return parser.parse_args()
 
@@ -50,6 +59,23 @@ def render(args: argparse.Namespace) -> None:
         render_fb2()
     else:
         render_plain()
+
+
+def list_tools(args: argparse.Namespace) -> None:
+    import asyncio
+
+    from hnpx_sdk.server import app
+
+    async def f() -> None:
+        tools = await app.get_tools()
+        for name, tool in tools.items():
+            if args.long:
+                print(f"- {name}: {tool.description}")
+                print()
+            else:
+                print(name)
+
+    asyncio.run(f())
 
 
 def main() -> None:
