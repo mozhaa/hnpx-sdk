@@ -7,8 +7,7 @@ app = fastmcp.FastMCP("hnpx-server", version="1.0.0")
 app.tool()(tools.create_document)
 
 # Navigation & Discovery Tools
-app.tool()(tools.get_next_empty_container)
-app.tool()(tools.get_next_empty_container_in_node)
+app.tool()(tools.get_empty)
 app.tool()(tools.get_node)
 
 # Node Inspection Tools

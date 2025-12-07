@@ -23,29 +23,16 @@ def test_create_document_invalid_path():
         tools.create_document("/invalid/path/test.xml")
 
 
-def test_get_next_empty_container(incomplete_xml_path):
-    result = tools.get_next_empty_container(str(incomplete_xml_path))
+def test_get_empty(incomplete_xml_path):
+    result = tools.get_empty(str(incomplete_xml_path), "3295p0")
 
     assert "gr5peb" in result
     assert "<beat" in result
 
 
-def test_get_next_empty_container_complete(complete_xml_path):
-    result = tools.get_next_empty_container(str(complete_xml_path))
-
-    assert "No empty containers found" in result
-
-
-def test_get_next_empty_container_in_node(incomplete_xml_path):
-    result = tools.get_next_empty_container_in_node(str(incomplete_xml_path), "3295p0")
-
-    assert "gr5peb" in result
-    assert "<beat" in result
-
-
-def test_get_next_empty_container_in_node_not_found(incomplete_xml_path):
+def test_get_empty_not_found(incomplete_xml_path):
     with pytest.raises(NodeNotFoundError):
-        tools.get_next_empty_container_in_node(str(incomplete_xml_path), "nonexistent")
+        tools.get_empty(str(incomplete_xml_path), "nonexistent")
 
 
 def test_get_node(complete_xml_path):

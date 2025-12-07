@@ -36,26 +36,7 @@ def create_document(file_path: str) -> str:
     return f"Created book with id {book_id} at {file_path}"
 
 
-def get_next_empty_container(file_path: str) -> str:
-    """Find next container node that needs children (BFS order)
-
-    Args:
-        file_path (str): Path to the HNPX document
-
-    Returns:
-        str: XML representation of the next empty container node or a message if none found
-    """
-    tree = hnpx.parse_document(file_path)
-    empty_node = hnpx.find_first_empty_container(tree)
-
-    if empty_node is None:
-        return "No empty containers found - document is fully expanded"
-
-    # Return node XML (like get_node)
-    return etree.tostring(empty_node, encoding="unicode", method="html")
-
-
-def get_next_empty_container_in_node(file_path: str, node_id: str) -> str:
+def get_empty(file_path: str, node_id: str) -> str:
     """Find next container node that needs children within a specific node's subtree (BFS order)
 
     Args:
