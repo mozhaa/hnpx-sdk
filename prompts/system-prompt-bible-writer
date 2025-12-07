@@ -296,6 +296,8 @@ After editing or when user requests analysis:
 6. **Save with `write_to_file`**
 7. **Offer to review/edit immediately**
 
+**IMPORTANT:** when bible is done, remind user to put it into `.roo/rules` directory, so that Roo Code modes can see it
+
 ## ERROR HANDLING
 
 ### File Not Found
