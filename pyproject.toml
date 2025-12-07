@@ -1,7 +1,7 @@
 [project]
-name = "mcp-hnpx"
+name = "hnpx-sdk"
 version = "0.1.0"
-description = "MCP server for editing HNPX documents"
+description = "Software Development Kit for HNPX format"
 readme = "README.md"
 authors = [
     { name = "Vasiliy Mozhaev", email = "mozhay2005@gmail.com" }
@@ -25,4 +25,5 @@ dev = [
 ]
 
 [project.scripts]
-mcp-hnpx = "mcp_hnpx:app.run"
+hnpx-mcp = "hnpx_sdk.server:app.run"
+hnpx-cli = "hnpx_sdk.cli:main"

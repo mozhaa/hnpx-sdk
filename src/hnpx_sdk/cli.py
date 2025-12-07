@@ -1,0 +1,61 @@
+import argparse
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="hnpx-tools", description="perform some basic actions on HNPX documents"
+    )
+    subparsers = parser.add_subparsers(title="actions")
+    render_parser = subparsers.add_parser(
+        "render", description="render an HNPX document into some format"
+    )
+    render_parser.add_argument("file", type=str, help="path to HNPX document")
+    render_parser.add_argument(
+        "-f",
+        "--format",
+        type=str,
+        default="plain",
+        choices=["plain", "plain_with_ids", "fb2"],
+        help="output format",
+    )
+    render_parser.add_argument(
+        "-o",
+        "--output",
+        type=str,
+        default=None,
+        help="path to output file (default: stdout)",
+    )
+    render_parser.set_defaults(func=render)
+
+    return parser.parse_args()
+
+
+def render(args: argparse.Namespace) -> None:
+    def render_fb2() -> None:
+        raise NotImplementedError()
+
+    def render_plain() -> None:
+        from .tools import get_root_id, render_node
+
+        root_id = get_root_id(args.file)
+        rendered = render_node(args.file, root_id, args.format == "plain_with_ids")
+
+        if args.output:
+            with open(args.output, "w+", encoding="utf-8") as f:
+                f.write(rendered)
+        else:
+            print(rendered)
+
+    if args.format == "fb2":
+        render_fb2()
+    else:
+        render_plain()
+
+
+def main() -> None:
+    args = parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

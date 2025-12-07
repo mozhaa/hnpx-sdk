@@ -1,7 +1,7 @@
 import pytest
 from lxml import etree
-import mcp_hnpx.hnpx as hnpx
-from mcp_hnpx.exceptions import ValidationError
+import hnpx_sdk.hnpx as hnpx
+from hnpx_sdk.exceptions import ValidationError
 
 
 def test_parse_document(complete_xml_path):

@@ -1,7 +1,7 @@
 import pytest
 
-import mcp_hnpx.tools as tools
-from mcp_hnpx.exceptions import (
+import hnpx_sdk.tools as tools
+from hnpx_sdk.exceptions import (
     InvalidAttributeError,
     InvalidHierarchyError,
     InvalidOperationError,

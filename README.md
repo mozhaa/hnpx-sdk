@@ -13,7 +13,7 @@ HNPX is a hierarchical XML format for planning and writing fiction. For the comp
 pip install -e .
 ```
 
-2. The server will be available as `mcp-hnpx` command.
+2. The server will be available as `hnpx-mcp` command.
 
 ## MCP Server Configuration
 
@@ -23,19 +23,10 @@ Add this server to your MCP configuration file:
 {
   "mcpServers": {
     "hnpx": {
-      "command": "mcp-hnpx",
+      "command": "hnpx-mcp",
       "args": [],
       "env": {}
     }
   }
 }
 ```
-
-## Quick Start
-
-The MCP server provides tools for:
-- Reading and navigating HNPX documents
-- Editing node attributes and content
-- Analyzing document structure
-
-For complete tool documentation and usage examples, refer to [`docs/mcp-tools.md`](docs/mcp-tools.md).
