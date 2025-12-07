@@ -59,8 +59,8 @@ def test_get_subtree(complete_xml_path):
     assert "One instant, I pray of you." in result
 
 
-def test_get_direct_children(complete_xml_path):
-    result = tools.get_direct_children(str(complete_xml_path), "3295p0")
+def test_get_children(complete_xml_path):
+    result = tools.get_children(str(complete_xml_path), "3295p0")
 
     assert "<sequence" in result
     assert 'id="104lac"' in result

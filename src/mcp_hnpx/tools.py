@@ -152,7 +152,7 @@ def get_subtree(file_path: str, node_id: str, pruning_level: str = "full") -> st
     return etree.tostring(node_copy, encoding="unicode", pretty_print=True)
 
 
-def get_direct_children(file_path: str, node_id: str) -> str:
+def get_children(file_path: str, node_id: str) -> str:
     """Retrieve immediate child nodes of a specified parent
 
     Args:
