@@ -4,7 +4,7 @@ A collection of tools for **HNPX** - a hierarchical XML-based format for plannin
 
 ## Origin
 
-**LLMs can't write a book.** Well, technically they can write _a_ book: they'll generate thousands of words that follow narrative conventions. **But they can't write _your_ book**, the specific story only you have in mind. That gap between "AI can write fiction" and "AI can't write the fiction I want" is the core of the workflow, described below.
+**LLMs can't write a good story.** Well, technically they can write _a_ good story: they'll generate thousands of words that follow narrative conventions. **But they can't write _your_ story**, the specific story only you have in mind. That gap between "AI can write fiction" and "AI can't write the fiction I want" is the core of the workflow described below.
 
 Ask an LLM to write a whole chapter, and it'll **speedrun through the plot in about 300 words.** Try going paragraph by paragraph, and you'll find the AI **doesn't know when to stop one scene and start the next.**
 
@@ -18,11 +18,11 @@ To bring HNPX to life, I considered building a custom UI or VS Code extension, b
 
 ## What is HNPX?
 
-HNPX (Hierarchical Narrative Planning XML) is a structured XML format designed for planning and writing fiction. It organizes narrative content into a strict hierarchy from book-level overview down to individual paragraphs, enabling a step-by-step expansion approach that maintains context and control throughout the writing process.
+HNPX (Hierarchical Narrative Planning XML) is a structured XML format designed for planning and writing fiction. It organizes narrative content into a strict hierarchy from book-level overview down to individual paragraphs, enabling a step-by-step expansion approach that maintains context and control throughout the writing process. See [docs/HNPX.md](docs/HNPX.md) for a full specification.
 
 The format supports both high-level planning (summaries without full text) and complete documentation (full prose ready for rendering), making it flexible for writers at any stage of their creative process.
 
-See [this document](tests/resources/mixed.xml) as a reference.
+See [this file](tests/resources/mixed.xml) as an example of an HNPX document.
 
 ## Features
 
