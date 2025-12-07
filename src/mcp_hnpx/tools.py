@@ -89,15 +89,16 @@ def get_node(file_path: str, node_id: str) -> str:
     return etree.tostring(node, encoding="unicode", method="html")
 
 
-def get_subtree(file_path: str, node_id: str) -> str:
-    """Retrieve XML representation of node including all descendants
+def get_subtree(file_path: str, node_id: str, pruning_level: str = "full") -> str:
+    """Retrieve XML representation of node including all descendants, optionally pruned
 
     Args:
         file_path (str): Path to the HNPX document
         node_id (str): ID of the node to retrieve
+        pruning_level (str): Depth level - one of: "book", "chapter", "sequence", "beat", "full"
 
     Returns:
-        str: XML representation of the node and all its descendants
+        str: XML representation of the node and its descendants, pruned to specified depth
     """
     tree = hnpx.parse_document(file_path)
     node = hnpx.find_node(tree, node_id)
@@ -105,7 +106,50 @@ def get_subtree(file_path: str, node_id: str) -> str:
     if node is None:
         raise NodeNotFoundError(node_id)
 
-    return etree.tostring(node, encoding="unicode", method="html")
+    # If no pruning needed, return full subtree
+    if pruning_level == "full":
+        return etree.tostring(node, encoding="unicode", method="html")
+
+    # Validate level parameter
+    valid_levels = ["book", "chapter", "sequence", "beat", "full"]
+    if pruning_level not in valid_levels:
+        raise InvalidAttributeError(
+            "pruning_level", pruning_level, f"Must be one of: {', '.join(valid_levels)}"
+        )
+
+    # Define hierarchy levels
+    hierarchy = {"book": 0, "chapter": 1, "sequence": 2, "beat": 3, "full": 5}
+
+    max_depth = hierarchy[pruning_level]
+
+    # Create a copy of the node to avoid modifying the original
+    node_copy = etree.Element(node.tag, node.attrib)
+    for child in node:
+        node_copy.append(etree.fromstring(etree.tostring(child, encoding="unicode")))
+
+    def prune_tree(node: etree.Element, current_depth: int) -> None:
+        """Recursively remove nodes beyond max_depth"""
+        if current_depth >= max_depth:
+            # Remove all children except summary
+            children_to_remove = []
+            for child in node:
+                if child.tag != "summary":
+                    children_to_remove.append(child)
+
+            for child in children_to_remove:
+                node.remove(child)
+        else:
+            # Recursively process children
+            for child in list(node):
+                if child.tag in hierarchy:
+                    prune_tree(child, current_depth + 1)
+
+    # Start pruning from the node (determine depth based on node type)
+    node_depth = hierarchy.get(node.tag, 0)
+    prune_tree(node_copy, node_depth)
+
+    # Return the pruned tree as XML
+    return etree.tostring(node_copy, encoding="unicode", pretty_print=True)
 
 
 def get_direct_children(file_path: str, node_id: str) -> str:
@@ -164,55 +208,6 @@ def get_node_path(file_path: str, node_id: str) -> str:
         path_xml.append(etree.tostring(ancestor, encoding="unicode", method="html"))
 
     return "\n".join(path_xml)
-
-
-def get_document_at_depth(file_path: str, level: str = "chapter") -> str:
-    """Retrieve XML representation of document at specified depth level
-
-    Args:
-        file_path (str): Path to the HNPX document
-        level (str): Depth level - one of: "book", "chapter", "sequence", "beat", "full"
-
-    Returns:
-        str: XML representation of the document pruned to the specified depth
-    """
-    tree = hnpx.parse_document(file_path)
-    root = tree.getroot()
-
-    # Validate level parameter
-    valid_levels = ["book", "chapter", "sequence", "beat", "full"]
-    if level not in valid_levels:
-        raise InvalidAttributeError(
-            "level", level, f"Must be one of: {', '.join(valid_levels)}"
-        )
-
-    # Define hierarchy levels
-    hierarchy = {"book": 0, "chapter": 1, "sequence": 2, "beat": 3, "full": 5}
-
-    max_depth = hierarchy[level]
-
-    def prune_tree(node: etree.Element, current_depth: int) -> None:
-        """Recursively remove nodes beyond max_depth"""
-        if current_depth >= max_depth:
-            # Remove all children except summary
-            children_to_remove = []
-            for child in node:
-                if child.tag != "summary":
-                    children_to_remove.append(child)
-
-            for child in children_to_remove:
-                node.remove(child)
-        else:
-            # Recursively process children
-            for child in list(node):
-                if child.tag in hierarchy:
-                    prune_tree(child, current_depth + 1)
-
-    # Start pruning from the root (book is at depth 0)
-    prune_tree(root, 0)
-
-    # Return the pruned tree as XML
-    return etree.tostring(root, encoding="unicode", pretty_print=True)
 
 
 def _create_element(

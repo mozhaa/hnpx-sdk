@@ -14,7 +14,6 @@ app.tool()(tools.get_node)
 app.tool()(tools.get_subtree)
 app.tool()(tools.get_direct_children)
 app.tool()(tools.get_node_path)
-app.tool()(tools.get_document_at_depth)
 
 # Node Creation Tools
 app.tool()(tools.create_chapter)

@@ -79,8 +79,8 @@ def test_get_node_path(complete_xml_path):
     assert "<beat" in result
 
 
-def test_get_document_at_depth_full(complete_xml_path):
-    result = tools.get_document_at_depth(str(complete_xml_path), "full")
+def test_get_subtree_full(complete_xml_path):
+    result = tools.get_subtree(str(complete_xml_path), "glyjor", "full")
 
     assert "<book" in result
     assert "<chapter" in result
@@ -89,8 +89,8 @@ def test_get_document_at_depth_full(complete_xml_path):
     assert "<paragraph" in result
 
 
-def test_get_document_at_depth_beat(complete_xml_path):
-    result = tools.get_document_at_depth(str(complete_xml_path), "beat")
+def test_get_subtree_beat(complete_xml_path):
+    result = tools.get_subtree(str(complete_xml_path), "glyjor", "beat")
 
     assert "<book" in result
     assert "<chapter" in result
@@ -99,9 +99,9 @@ def test_get_document_at_depth_beat(complete_xml_path):
     assert "<paragraph" not in result
 
 
-def test_get_document_at_depth_invalid_level(complete_xml_path):
+def test_get_subtree_invalid_level(complete_xml_path):
     with pytest.raises(InvalidAttributeError):
-        tools.get_document_at_depth(str(complete_xml_path), "invalid")
+        tools.get_subtree(str(complete_xml_path), "glyjor", "invalid")
 
 
 def test_create_chapter(temp_file, complete_xml_path):
